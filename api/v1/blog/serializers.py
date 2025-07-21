@@ -4,6 +4,7 @@ import json
 
 class BlogPostSerializer(serializers.ModelSerializer):
     slug = serializers.CharField(read_only=True)
+    featured_image = serializers.SerializerMethodField()
 
     class Meta:
         model = BlogPost
@@ -13,6 +14,11 @@ class BlogPostSerializer(serializers.ModelSerializer):
             'views_count', 'is_featured', 'likes_count'
         ]
 
+    def get_featured_image(self, obj):
+        if obj.featured_image:
+            return obj.featured_image.url
+        return None
+
     def validate_title(self, value):
         """Ensure title is not empty."""
         if not value.strip():
@@ -21,7 +27,6 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     def validate_tags(self, value):
         """Ensure tags is a list of strings."""
-        # Handle case where tags is a stringified JSON
         if isinstance(value, str):
             try:
                 value = json.loads(value)
