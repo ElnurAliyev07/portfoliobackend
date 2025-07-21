@@ -24,9 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yo7nvbs=#fjm(#lx(e%2u2*06q)qa&kioon)%87=5fz(^c-ga@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'portfoliofront-opal.vercel.app',
+    'portfoliobackend-n9dv.onrender.com',  # əgər Railway və ya Render istifadə edirsənsə
+]
+
 
 
 # Application definition
@@ -124,8 +128,7 @@ USE_I18N = True
 
 STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+'https://portfoliofront-opal.vercel.app'
 ]
 
 # Default primary key field type
