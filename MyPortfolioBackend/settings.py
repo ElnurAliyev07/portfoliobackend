@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'portfoliofront-opal.vercel.app',
     'portfoliobackend-n9dv.onrender.com',  # əgər Railway və ya Render istifadə edirsənsə
+    # '127.0.0.1',
 ]
 
 
@@ -47,8 +49,16 @@ INSTALLED_APPS = [
     'apps.contact',
     'apps.blog',
     'apps.project',
+    'cloudinary',
+    'cloudinary_storage',
 ]
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+cloudinary.config(
+  cloud_name='deegx35is',
+  api_key='729847654117588',
+  api_secret='tUbBnOwgyPUgf5WY7e7WUtwvKx4'
+)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -80,8 +90,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MyPortfolioBackend.wsgi.application'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

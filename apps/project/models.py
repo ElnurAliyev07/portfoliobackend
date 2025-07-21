@@ -1,14 +1,15 @@
 from django.db import models
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
-def upload_to(instance, filename):
-    return f'project/featured_images/{instance.id}/{filename}'
+# def upload_to(instance, filename):
+#     return f'project/featured_images/{instance.id}/{filename}'
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
     short_description = models.TextField(max_length=500, blank=True)
     description = models.TextField(blank=True)
-    featured_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    featured_image = CloudinaryField('project')
     technologies = models.JSONField(default=list)
     github_url = models.URLField(blank=True, null=True)
     live_url = models.URLField(blank=True, null=True)

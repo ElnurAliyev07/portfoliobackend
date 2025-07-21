@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 import re
 
 def generate_slug(title):
@@ -8,16 +9,16 @@ def generate_slug(title):
     slug = re.sub(r'[^\w-]+', '', slug)  # Remove non-alphanumeric characters except hyphens
     return slug.strip()
 
-def upload_to(instance, filename):
-    """Generate file path for uploaded images."""
-    return f'blog/featured_images/{instance.slug}/{filename}'
+# def upload_to(instance, filename):
+#     """Generate file path for uploaded images."""
+#     return f'blog/featured_images/{instance.slug}/{filename}'
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)
     slug = models.CharField(max_length=255, unique=True, blank=True)
     excerpt = models.TextField()
     content = models.TextField(blank=True, null=True)
-    featured_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    featured_image = CloudinaryField('blog')
     author = models.CharField(max_length=100)
     date = models.DateField()
     read_count = models.PositiveIntegerField(default=0)  # Tracks number of reads
